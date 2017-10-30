@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="generador" type="sv.edu.uesocc.ingenieria.prn335_2017.web.controladores.DefaultGenerator" 
+                      required="true" shortDescription="Generador para las operaciones CRUD"/>
+        <cc:attribute name="nombreEntidad"  default="" required="false"/>
+        <cc:attribute name="refrescarNuevo" required="false" default=":pnlDetalles pnlBotonesTop"/>
+        <cc:attribute name="refrescarCancelar" required="false" default=":pnlFrmTabla :pnlDetalles" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:panelGroup id="pnlBotonesTop">
+           
+                    <p:commandButton actionListener="#{cc.attrs.generador.btnNuevoHandler}" id="btnNuevo" 
+                                     value="#{msg['generador.nuevo']}" 
+                                     update="#{cc.attrs.refrescarNuevo}"
+                                     resetValues="true"/>
+                       
+                    <p:commandButton id="btnCancelar" value="#{msg['generador.cancelar']}"
+                                     actionListener="#{cc.attrs.generador.btnCancelarHandler}" 
+                                     update="#{cc.attrs.refrescarCancelar}"
+                                     resetValues="true"/>
+                      
+        </h:panelGroup>
+    </cc:implementation>
+</html>

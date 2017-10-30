@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      >
+
+
+    <cc:interface >
+        <cc:attribute name="frm" required="true" type="sv.edu.uesocc.ingenieria.prn335_2017.web.controladores.DefaultGenerator" />
+    </cc:interface>
+
+    <cc:implementation>
+       
+              <p:commandButton value="#{msg['generador.guardar']}" 
+                                     validateClient="true" ajax="true"
+                                     update=":pnlFrmTabla :pnlDetalles"
+                                     rendered="#{cc.attrs.frm.btnGuardar}"
+                                     actionListener="#{cc.attrs.frm.btnGuardarHandler(ae)}"/>
+
+                  <p:commandButton value="#{msg['generador.eliminar']}" 
+                                     validateClient="true" ajax="true"
+                                     update=":frmTabla :frmDetalles"
+                                     rendered="#{cc.attrs.frm.btnModEli}"
+                                     actionListener="#{cc.attrs.frm.btnEliminarHandler(ae)}"/>
+                    
+                    <p:commandButton value="#{msg['generador.modificar']}" 
+                                     validateClient="true" ajax="true"
+                                     update=":frmTabla :frmDetalles"
+                                     rendered="#{cc.attrs.frm.btnModEli}"
+                                     actionListener="#{cc.attrs.frm.btnModificarHandler(ae)}"/>  
+    </cc:implementation>
+</html>

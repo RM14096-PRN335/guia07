@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:hw="http://xmlns.jcp.org/jsf/composite/componentes">
+
+    
+        <h:head>
+        <title>#{msg['generador.titulo']}</title>
+    </h:head>
+ 
+    <body>        
+                    <p:layoutUnit position="north" resizable="false" closable="false" collapsible="false">
+                        <h:form id="frmtop">
+                            <p:panelGrid columns="4">
+                                <h:outputLabel for="lstIdiomas" value="#{msg['generador.idioma']}" />
+                                <h:selectOneListbox id="lstidiomas" value="#{sesionDeUsuarioBean.codigoIdioma}" size="2" valueChangeListener="#{sesionDeUsuarioBean.CambioDeIdiomaHandler}" onchange="submit()">
+                                    <f:selectItems value="#{sesionDeUsuarioBean.paises}"/>
+                                </h:selectOneListbox>
+                            </p:panelGrid>
+                        </h:form> 
+                    </p:layoutUnit>
+                
+                
+                
+        <p:layoutUnit position="center" closable="false">
+                     <p:panel closable="false" toggleable="false" collapsed="false">
+            <h:panelGroup id="pnlFrmTabla">
+                <h:form id="frmTabla">
+                    <h:panelGrid>
+                        <h:panelGroup>
+                            <h3 style="text-align: left;padding: 0;">#{msg['generador.titulo']}</h3>
+                        </h:panelGroup>
+                        
+        <p:dataTable id="tblPadre" 
+                     value="#{TipoSeccionBean.modelo}"
+                     var="reg"
+                     lazy="true"
+                     paginator="true"
+                     rows="5"
+                     selectionMode="single"
+                     selection="#{TipoSeccionBean.registro}"
+                     disabledSelection="#{TipoSeccionBean.seleccions}">
+            
+            <p:ajax event="rowSelect" listener="#{TipoSeccionBean.cambiarSeleccion}" update=":frmTabla :pnlDetalles" />
+
+            <p:column headerText="ID">
+                <p:outputLabel value="#{reg.idTipoSeccion}"/>
+            </p:column>
+            <p:column headerText="#{msg['generador.nombre']}">
+                <p:outputLabel value="#{reg.nombre}"/>
+            </p:column>
+            <p:column headerText="#{msg['generador.activo']}">
+                <p:outputLabel value="#{reg.activo}"/>
+            </p:column>
+             <p:column headerText="#{msg['generador.descripcion']}">
+                <p:outputLabel value="#{reg.descripcion}"/>
+            </p:column>
+        </p:dataTable>
+                        
+                    
+                        <hw:controlessuperiores generador="#{TipoSeccionBean}" nombreEntidad="TipoSeccion"/>
+                        
+                </h:panelGrid>
+                </h:form>
+                
+                
+            </h:panelGroup>
+                         
+                         
+                         
+                         
+            <h:panelGroup id="pnlDetalles">
+                <h:form id="frmDetalles">
+                    
+          <p:tabView rendered="#{TipoSeccionBean.mostrandoDetalle}" id="tab">
+
+            <p:ajax event="tabChange" update=":pnlDetalles"/> 
+            <p:tab >
+            <h:panelGrid columns="2" rendered="#{TipoSeccionBean.mostrandoDetalle}">
+                    
+            <p:outputLabel value="ID"/>
+            <p:inputText id="txtId" value="#{TipoSeccionBean.registro.idTipoSeccion}" disabled="true" readonly="true"/>
+            
+            <p:outputLabel value="#{msg['generador.nombre']}"/>
+            <p:inputText value="#{TipoSeccionBean.registro.nombre}" required="true" requiredMessage="Necesita llenar este campo"/>
+            
+            <p:outputLabel value="#{msg['generador.activo']}" />
+            <p:selectBooleanCheckbox id="txtCodigo" value="#{TipoSeccionBean.registro.activo}" required="true" requiredMessage="Código: Campo Requerido"/>
+            
+            <p:outputLabel value="#{msg['generador.descripcion']}" />
+            <p:inputTextarea id="txtDescripcion" value="#{TipoSeccionBean.registro.descripcion}" rows="4"/>
+            </h:panelGrid>
+                
+                <h:panelGroup id="pnlBotonesBottom">
+                    <h:panelGrid columns="3" rendered="#{TipoSeccionBean.mostrandoDetalle}">
+                        <hw:botonesEditar frm="#{TipoSeccionBean}"/>
+                    </h:panelGrid>
+                </h:panelGroup>
+            </p:tab> 
+            
+        </p:tabView>
+                    
+                 </h:form>
+            </h:panelGroup>
+        </p:panel>
+     </p:layoutUnit>
+                
+                
+               
+                <p:layoutUnit position="south" resizable="false" closable="false" size="35">
+                     <h:panelGrid columns="3" >
+                        <p align="left" style="size: 10px">#{msg['generador.final']}</p>
+                    </h:panelGrid>
+                </p:layoutUnit>
+            
+    </body>
+</html>
